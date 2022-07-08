@@ -1,28 +1,21 @@
-import React, {
-  useState,
-  useRef as useRefReact,
-  useEffect,
-  createContext,
-  useContext,
-  Ref,
-  RefObject,
-  ReactNode,
-} from 'react';
+import React from 'react';
 
 export type RefContextType = {
-  addRef: (ref: Ref<unknown>) => void;
-  refs: Ref<unknown>[];
+  addRef: (ref: React.Ref<unknown>) => void;
+  refs: React.Ref<unknown>[];
 };
 
-const RefContext = createContext<RefContextType | null>(null);
+const RefContext = React.createContext<RefContextType | undefined>(undefined);
 
 export interface BoundaryProviderProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 export const BoundaryProvider: React.FC<BoundaryProviderProps> = ({
   children,
 }) => {
-  const [refs] = useState([]);
+  const state = React.useState([]);
+  const refs = state[0];
+
   function addRef(ref) {
     refs.push(ref);
     return () => refs.splice(refs.indexOf(ref), 1);
@@ -35,19 +28,19 @@ export const BoundaryProvider: React.FC<BoundaryProviderProps> = ({
   );
 };
 
-export function useRef<T>(): RefObject<T> {
-  const ref = useRefReact<T>();
-  const context = useContext(RefContext);
+export function useRef<T>(initialValue: T): React.RefObject<T> {
+  const ref = React.useRef<T>(initialValue);
+  const context = React.useContext(RefContext);
   if (!context)
     throw new Error(
-      'Missing react-ref-boundary context. Check for correct use of BoundaryProvider',
+      'react-ref-boundary: addRef not found on context. You might be missing the BoundaryProvider or have multiple instances of react-ref-boundary',
     );
-  useEffect(() => context.addRef(ref));
+  React.useEffect(() => context.addRef(ref));
   return ref;
 }
 
 export function useBoundary() {
-  const context = useContext(RefContext);
+  const context = React.useContext(RefContext);
   if (!context)
     throw new Error(
       'Missing react-ref-boundary context. Check for correct use of BoundaryProvider',

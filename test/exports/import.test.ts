@@ -1,4 +1,3 @@
-import { describe, it } from '@jest/globals';
 import assert from 'assert';
 import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
 
