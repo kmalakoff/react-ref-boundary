@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { describe, it } = require('@jest/globals');
 const assert = require('assert');
 const { BoundaryProvider, useRef, useBoundary } = require('react-ref-boundary');
 

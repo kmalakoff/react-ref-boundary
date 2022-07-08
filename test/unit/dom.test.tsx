@@ -2,12 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { describe, it } from '@jest/globals';
 import assert from 'assert';
 import React from 'react';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
 
@@ -46,45 +43,24 @@ describe('react-dom', function () {
   });
 
   it('errors: useRef without provider', function () {
-    function ErrorFallback({ error }) {
-      return <div>{error.message}</div>;
+    try {
+      render(<BoundaryComponent />);
+    } catch (err) {
+      assert.ok(err);
     }
-
-    let err = false;
-    render(
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onError={function () {
-          err = true;
-        }}
-      >
-        <BoundaryComponent />
-      </ErrorBoundary>,
-    );
-    assert.ok(!!err);
   });
 
   it('errors: useBoundary without provider', function () {
-    function ErrorFallback({ error }) {
-      return <div>{error.message}</div>;
-    }
     let refs = [];
     function getRefs(x) {
       refs = x;
     }
 
-    let err = false;
-    render(
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onError={function () {
-          err = true;
-        }}
-      >
-        <BoundaryChecker getRefs={getRefs} />
-      </ErrorBoundary>,
-    );
-    assert.ok(!!err);
+    try {
+      render(<BoundaryChecker getRefs={getRefs} />);
+    } catch (err) {
+      assert.ok(err);
+    }
     assert.equal(refs.length, 0);
   });
 });
