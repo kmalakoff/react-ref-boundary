@@ -2,13 +2,31 @@
  * @jest-environment jsdom
  */
 
+global.IS_REACT_ACT_ENVIRONMENT = true;
+
 import assert from 'assert';
 import React from 'react';
-import { render } from '@testing-library/react';
+import { createRoot, Root } from 'react-dom/client';
+import { act } from 'react-dom/test-utils';
 
 import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
 
 describe('react-dom', function () {
+  let container: HTMLDivElement | null = null;
+  let root: Root | null = null;
+  beforeEach(function () {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    root = createRoot(container);
+  });
+
+  afterEach(function () {
+    act(() => root.unmount());
+    root = null;
+    container.remove();
+    container = null;
+  });
+
   function NonBoundaryComponent() {
     const ref = React.useRef<HTMLDivElement>(null);
     return <div ref={ref} />;
@@ -31,20 +49,22 @@ describe('react-dom', function () {
       refs = x;
     }
     assert.equal(refs.length, 0);
-    render(
-      <BoundaryProvider>
-        <BoundaryComponent />
-        <NonBoundaryComponent />
-        <BoundaryComponent />
-        <BoundaryChecker getRefs={getRefs} />
-      </BoundaryProvider>,
+    act(() =>
+      root.render(
+        <BoundaryProvider>
+          <BoundaryComponent />
+          <NonBoundaryComponent />
+          <BoundaryComponent />
+          <BoundaryChecker getRefs={getRefs} />
+        </BoundaryProvider>,
+      ),
     );
     assert.equal(refs.length, 2);
   });
 
   it('errors: useRef without provider', function () {
     try {
-      render(<BoundaryComponent />);
+      act(() => root.render(<BoundaryComponent />));
     } catch (err) {
       assert.ok(err);
     }
@@ -57,7 +77,7 @@ describe('react-dom', function () {
     }
 
     try {
-      render(<BoundaryChecker getRefs={getRefs} />);
+      act(() => root.render(<BoundaryChecker getRefs={getRefs} />));
     } catch (err) {
       assert.ok(err);
     }
