@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.useRef = useRef;
 exports.useBoundary = useBoundary;
-exports.BoundaryProvider = void 0;
+module.exports = exports.BoundaryProvider = void 0;
 var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -46,3 +46,9 @@ function useBoundary() {
         refs: context.refs
     };
 }
+var _default = {
+    BoundaryProvider: BoundaryProvider,
+    useRef: useRef,
+    useBoundary: useBoundary
+};
+module.exports = _default;

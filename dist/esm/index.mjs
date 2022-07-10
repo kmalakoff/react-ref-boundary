@@ -28,3 +28,8 @@ export function useBoundary() {
         refs: context.refs
     };
 }
+export default {
+    BoundaryProvider,
+    useRef,
+    useBoundary
+};

@@ -1,6 +1,6 @@
 import assert from 'assert';
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { create, act } from 'react-test-renderer';
 
 import { View } from 'react-native';
 import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
@@ -22,19 +22,21 @@ describe('react-native', function () {
     return <View />;
   }
 
-  it('refs', function () {
+  it('refs', async function () {
     let refs = [];
     function getRefs(x) {
       refs = x;
     }
     assert.equal(refs.length, 0);
-    render(
-      <BoundaryProvider>
-        <BoundaryComponent />
-        <NonBoundaryComponent />
-        <BoundaryComponent />
-        <BoundaryChecker getRefs={getRefs} />
-      </BoundaryProvider>,
+    await act(() =>
+      create(
+        <BoundaryProvider>
+          <BoundaryComponent />
+          <NonBoundaryComponent />
+          <BoundaryComponent />
+          <BoundaryChecker getRefs={getRefs} />
+        </BoundaryProvider>,
+      ),
     );
     assert.equal(refs.length, 2);
   });

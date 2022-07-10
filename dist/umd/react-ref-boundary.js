@@ -42,8 +42,14 @@
           refs: context.refs
       };
   }
+  var index = {
+      BoundaryProvider: BoundaryProvider,
+      useRef: useRef,
+      useBoundary: useBoundary
+  };
 
   exports.BoundaryProvider = BoundaryProvider;
+  exports["default"] = index;
   exports.useBoundary = useBoundary;
   exports.useRef = useRef;
 

@@ -11,3 +11,9 @@ export declare function useRef<T>(initialValue: T): React.RefObject<T>;
 export declare function useBoundary(): {
     refs: React.Ref<unknown>[];
 };
+declare const _default: {
+    BoundaryProvider: React.FC<BoundaryProviderProps>;
+    useRef: typeof useRef;
+    useBoundary: typeof useBoundary;
+};
+export default _default;

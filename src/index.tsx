@@ -47,3 +47,9 @@ export function useBoundary() {
     );
   return { refs: context.refs };
 }
+
+export default {
+  BoundaryProvider,
+  useRef,
+  useBoundary,
+};
