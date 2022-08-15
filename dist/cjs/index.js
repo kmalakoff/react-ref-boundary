@@ -2,10 +2,27 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.useRef = useRef;
-exports.useBoundary = useBoundary;
-module.exports = exports.BoundaryProvider = void 0;
-var _react = _interopRequireDefault(require("react"));
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    BoundaryProvider: function() {
+        return BoundaryProvider;
+    },
+    useRef: function() {
+        return useRef;
+    },
+    useBoundary: function() {
+        return useBoundary;
+    },
+    default: function() {
+        return _default;
+    }
+});
+var _react = /*#__PURE__*/ _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -29,7 +46,6 @@ var BoundaryProvider = function(param) {
         }
     }, children);
 };
-exports.BoundaryProvider = BoundaryProvider;
 function useRef(initialValue) {
     var ref = _react.default.useRef(initialValue);
     var context = _react.default.useContext(RefContext);
@@ -51,4 +67,9 @@ var _default = {
     useRef: useRef,
     useBoundary: useBoundary
 };
-module.exports = _default;
+
+if ((typeof exports.default === 'function' || (typeof exports.default === 'object' && exports.default !== null)) && typeof exports.default.__esModule === 'undefined') {
+  Object.defineProperty(exports.default, '__esModule', { value: true });
+  for (var key in exports) exports.default[key] = exports[key];
+  module.exports = exports.default;
+}
