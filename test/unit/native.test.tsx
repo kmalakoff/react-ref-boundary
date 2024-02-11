@@ -1,13 +1,13 @@
 import assert from 'assert';
-import React from 'react';
-import { create, act } from 'react-test-renderer';
+import { useRef as useReactRef } from 'react';
+import { act, create } from 'react-test-renderer';
 
 import { View } from 'react-native';
-import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
+import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 
-describe('react-native', function () {
+describe('react-native', () => {
   function NonBoundaryComponent() {
-    const ref = React.useRef<View>(null);
+    const ref = useReactRef<View>(null);
     return <View ref={ref} />;
   }
 
@@ -22,7 +22,7 @@ describe('react-native', function () {
     return <View />;
   }
 
-  it('refs', async function () {
+  it('refs', async () => {
     let refs = [];
     function getRefs(x) {
       refs = x;
@@ -35,8 +35,8 @@ describe('react-native', function () {
           <NonBoundaryComponent />
           <BoundaryComponent />
           <BoundaryChecker getRefs={getRefs} />
-        </BoundaryProvider>,
-      ),
+        </BoundaryProvider>
+      )
     );
     assert.equal(refs.length, 2);
   });
