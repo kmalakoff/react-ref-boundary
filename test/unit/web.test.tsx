@@ -5,23 +5,23 @@
 global.IS_REACT_ACT_ENVIRONMENT = true;
 
 import assert from 'assert';
-import React from 'react';
-import { createRoot, Root } from 'react-dom/client';
+import { useRef as useReactRef } from 'react';
+import { Root, createRoot } from 'react-dom/client';
 import { act } from 'react-dom/test-utils';
 
 import { View } from 'react-native-web';
-import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
+import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 
-describe('react-native-web', function () {
+describe('react-native-web', () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
-  beforeEach(function () {
+  beforeEach(() => {
     container = document.createElement('div');
     document.body.appendChild(container);
     root = createRoot(container);
   });
 
-  afterEach(function () {
+  afterEach(() => {
     act(() => root.unmount());
     root = null;
     container.remove();
@@ -29,7 +29,7 @@ describe('react-native-web', function () {
   });
 
   function NonBoundaryComponent() {
-    const ref = React.useRef<View>(null);
+    const ref = useReactRef<View>(null);
     return <View ref={ref} />;
   }
 
@@ -43,7 +43,7 @@ describe('react-native-web', function () {
     getRefs(boundary.refs);
     return <View />;
   }
-  it('refs', function () {
+  it('refs', () => {
     let refs = [];
     function getRefs(x) {
       refs = x;
@@ -56,8 +56,8 @@ describe('react-native-web', function () {
           <NonBoundaryComponent />
           <BoundaryComponent />
           <BoundaryChecker getRefs={getRefs} />
-        </BoundaryProvider>,
-      ),
+        </BoundaryProvider>
+      )
     );
     assert.equal(refs.length, 2);
   });

@@ -1,0 +1,1 @@
+ignores: ["react-ref-boundary", "depcheck", "ts-dev-stack", "@types/*", "jest-*", "react", "react-*", "cross-env", "metro-react-native-babel-preset"]
