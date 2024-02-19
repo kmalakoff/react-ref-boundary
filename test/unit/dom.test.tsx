@@ -2,33 +2,37 @@
  * @jest-environment jsdom
  */
 
+// @ts-ignore
 global.IS_REACT_ACT_ENVIRONMENT = true;
 
 import assert from 'assert';
-import React from 'react';
-import { createRoot, Root } from 'react-dom/client';
+import { useRef as useReactRef } from 'react';
+import { Root, createRoot } from 'react-dom/client';
 import { act } from 'react-dom/test-utils';
+// @ts-ignore
+import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 
-import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
-
-describe('react-dom', function () {
+describe('react-dom', () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
-  beforeEach(function () {
+  beforeEach(() => {
+    // @ts-ignore
     container = document.createElement('div');
+    // @ts-ignore
     document.body.appendChild(container);
     root = createRoot(container);
   });
 
-  afterEach(function () {
+  afterEach(() => {
     act(() => root.unmount());
     root = null;
+    // @ts-ignore
     container.remove();
     container = null;
   });
 
   function NonBoundaryComponent() {
-    const ref = React.useRef<HTMLDivElement>(null);
+    const ref = useReactRef<HTMLDivElement>(null);
     return <div ref={ref} />;
   }
 
@@ -40,10 +44,10 @@ describe('react-dom', function () {
   function BoundaryChecker({ getRefs }) {
     const boundary = useBoundary();
     getRefs(boundary.refs);
-    return <React.Fragment />;
+    return <div />;
   }
 
-  it('refs', function () {
+  it('refs', () => {
     let refs = [];
     function getRefs(x) {
       refs = x;
@@ -56,13 +60,13 @@ describe('react-dom', function () {
           <NonBoundaryComponent />
           <BoundaryComponent />
           <BoundaryChecker getRefs={getRefs} />
-        </BoundaryProvider>,
-      ),
+        </BoundaryProvider>
+      )
     );
     assert.equal(refs.length, 2);
   });
 
-  it('errors: useRef without provider', function () {
+  it('errors: useRef without provider', () => {
     try {
       act(() => root.render(<BoundaryComponent />));
     } catch (err) {
@@ -70,7 +74,7 @@ describe('react-dom', function () {
     }
   });
 
-  it('errors: useBoundary without provider', function () {
+  it('errors: useBoundary without provider', () => {
     let refs = [];
     function getRefs(x) {
       refs = x;
