@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "lib": ["es2015", "dom"],
-    "types": ["jest", "node"],
+    "lib": ["es2015"],
+    "types": ["mocha", "node"],
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
@@ -10,7 +10,9 @@
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "allowJs": true,
-    "jsx": "react"
+    "allowUmdGlobalAccess": true,
+    "jsx": "react-jsx",
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "dist"],
   "include": ["src", "test"]
