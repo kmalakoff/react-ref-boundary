@@ -5,17 +5,16 @@ React context for grouping react references by boundary in react dom, native and
 ### Example 1
 
 ```tsx
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
+import { useRef as useReactRef, Fragment } from "react";
+import { BoundaryProvider, useRef, useBoundary } from "react-ref-boundary";
 
 function NonBoundaryComponent() {
-  const ref = React.useRef < HTMLDivElement > null;
+  const ref = useReactRef < HTMLDivElement > null;
   return <div ref={ref} />;
 }
 
 function BoundaryComponent() {
-  const ref = useRef < HTMLDivElement > null;
+  const ref = useBoundaryRef < HTMLDivElement > null;
   return <div ref={ref} />;
 }
 
@@ -39,7 +38,7 @@ function BoundaryChecker() {
 function BoundaryChecker({ getRefs }) {
   const boundary = useBoundary();
   getRefs(boundary.refs);
-  return <React.Fragment />;
+  return <Fragment />;
 }
 
 render(
