@@ -1,35 +1,36 @@
-/**
- * @jest-environment jsdom
- */
-
-global.IS_REACT_ACT_ENVIRONMENT = true;
+// @ts-ignore
+(typeof global === 'undefined' ? window : global).IS_REACT_ACT_ENVIRONMENT = true;
+import '../lib/polyfills.cjs';
 
 import assert from 'assert';
-import React from 'react';
-import { createRoot, Root } from 'react-dom/client';
-import { act } from 'react-dom/test-utils';
-
+import React, { useRef as useReactRef, act } from 'react';
+import { type Root, createRoot } from 'react-dom/client';
 import { View } from 'react-native-web';
-import { BoundaryProvider, useRef, useBoundary } from 'react-ref-boundary';
 
-describe('react-native-web', function () {
+// @ts-ignore
+import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
+
+describe('react-native-web', () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
-  beforeEach(function () {
+  beforeEach(() => {
+    // @ts-ignore
     container = document.createElement('div');
+    // @ts-ignore
     document.body.appendChild(container);
     root = createRoot(container);
   });
 
-  afterEach(function () {
+  afterEach(() => {
     act(() => root.unmount());
     root = null;
+    // @ts-ignore
     container.remove();
     container = null;
   });
 
   function NonBoundaryComponent() {
-    const ref = React.useRef<View>(null);
+    const ref = useReactRef<View>(null);
     return <View ref={ref} />;
   }
 
@@ -43,7 +44,7 @@ describe('react-native-web', function () {
     getRefs(boundary.refs);
     return <View />;
   }
-  it('refs', function () {
+  it('refs', () => {
     let refs = [];
     function getRefs(x) {
       refs = x;
@@ -56,8 +57,8 @@ describe('react-native-web', function () {
           <NonBoundaryComponent />
           <BoundaryComponent />
           <BoundaryChecker getRefs={getRefs} />
-        </BoundaryProvider>,
-      ),
+        </BoundaryProvider>
+      )
     );
     assert.equal(refs.length, 2);
   });
