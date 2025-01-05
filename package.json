@@ -40,9 +40,6 @@
   ],
   "scripts": {
     "build": "tsds build",
-    "clean": "node -e \"const dir = require('path').join(require('homedir-polyfill')(), '.im'); try {require('fs').rmdirSync(dir, {recursive: true})} catch(err) {}\"",
-    "deploy": "tsds deploy",
-    "docs": "tsds docs",
     "format": "biome check --write --unsafe src/ test/",
     "test": "tsds test:browser --config wtr.config.mjs",
     "test:engines": "nvu engines npm test",
@@ -52,6 +49,7 @@
     "@biomejs/biome": "^1.9.4",
     "@types/jsdom": "^21.1.7",
     "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.5",
     "@types/react": "^18.3.1",
     "@web/dev-server-import-maps": "^0.2.1",
     "jsdom": "^25.0.1",
@@ -60,7 +58,7 @@
     "react-native": "^0.76.5",
     "react-native-web": "^0.19.13",
     "react-test-renderer": "^18.3.1",
-    "tsds-web-test-runner": "^1.11.22"
+    "tsds-web-test-runner": "^1.12.5"
   },
   "peerDependencies": {
     "react": "*"
