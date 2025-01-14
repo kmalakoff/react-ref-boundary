@@ -1,1 +1,1 @@
-ignores: ["react-ref-boundary",  "@types/*", "@biomejs/*", "tsds-web-test-runner", "react", "react-*", "ts-swc-loaders"]
+ignores: ["@types/*", "react-ref-boundary",  "@types/*", "@biomejs/*", "tsds-web-test-runner", "react", "react-*", "ts-swc-loaders"]
