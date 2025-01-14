@@ -60,7 +60,7 @@
     "react-native": "^0.76.5",
     "react-native-web": "^0.19.13",
     "react-test-renderer": "^18.3.1",
-    "tsds-web-test-runner": "^1.13.6"
+    "tsds-web-test-runner": "^1.13.14"
   },
   "peerDependencies": {
     "react": "*"
