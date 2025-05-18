@@ -26,15 +26,13 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "types": "./dist/types/index.d.ts"
+      "require": "./dist/cjs/index.cjs"
     },
-    "./*": "./*"
+    "./package.json": "./package.json",
+    "./umd": "./dist/umd/react-ref-boundary.cjs"
   },
   "main": "dist/cjs/index.cjs",
-  "unpkg": "dist/umd/react-ref-boundary.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/cjs/index.d.cts",
   "files": [
     "dist"
   ],
