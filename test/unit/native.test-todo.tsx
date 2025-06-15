@@ -1,5 +1,5 @@
 import assert from 'assert';
-import React, { useRef as useReactRef } from 'react';
+import { useRef as useReactRef } from 'react';
 import { act, create } from 'react-test-renderer';
 
 import { View } from 'react-native';
