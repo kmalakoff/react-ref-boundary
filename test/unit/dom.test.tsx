@@ -3,8 +3,8 @@
 import '../lib/polyfills.cjs';
 
 import assert from 'assert';
-import React, { useRef as useReactRef, act } from 'react';
-import { type Root, createRoot } from 'react-dom/client';
+import React, { act } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
 
 // @ts-ignore
 import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
@@ -29,7 +29,7 @@ describe('react-dom', () => {
   });
 
   function NonBoundaryComponent() {
-    const ref = useReactRef<HTMLDivElement>(null);
+    const ref = React.useRef<HTMLDivElement>(null);
     return <div ref={ref} />;
   }
 
