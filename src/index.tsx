@@ -1,5 +1,5 @@
-import { createContext, createElement, useContext, useEffect, useRef as useReactRef, useState } from 'react';
 import type { FC, ReactNode, Ref, RefObject } from 'react';
+import { createContext, createElement, useContext, useEffect, useRef as useReactRef, useState } from 'react';
 
 export type RefContextType = {
   addRef: (ref: Ref<unknown>) => void;
