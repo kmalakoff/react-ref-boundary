@@ -1,5 +1,4 @@
 import assert from 'assert';
-// @ts-ignore
 import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 
 describe('exports .ts', () => {

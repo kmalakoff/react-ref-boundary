@@ -1,4 +1,3 @@
-// @ts-ignore
 (typeof global === 'undefined' ? window : global).IS_REACT_ACT_ENVIRONMENT = true;
 import '../lib/polyfills.cjs';
 
@@ -6,16 +5,13 @@ import assert from 'assert';
 import React, { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
-// @ts-ignore
 import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 
 describe('react-dom', () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
   beforeEach(() => {
-    // @ts-ignore
     container = document.createElement('div');
-    // @ts-ignore
     document.body.appendChild(container);
     root = createRoot(container);
   });
@@ -23,7 +19,6 @@ describe('react-dom', () => {
   afterEach(() => {
     act(() => root.unmount());
     root = null;
-    // @ts-ignore
     container.remove();
     container = null;
   });

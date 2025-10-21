@@ -1,7 +1,6 @@
 import assert from 'assert';
 import { useRef as useReactRef } from 'react';
 import { View } from 'react-native';
-// @ts-ignore
 import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 import { act, create } from 'react-test-renderer';
 
