@@ -1,6 +1,6 @@
 {
   "name": "react-ref-boundary",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "React context for grouping react references by boundary in react dom, native and web. Ideal for group references for contains checks when using react portals",
   "keywords": [
     "react",
