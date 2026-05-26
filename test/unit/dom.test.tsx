@@ -1,4 +1,4 @@
-(typeof global === 'undefined' ? window : global).IS_REACT_ACT_ENVIRONMENT = true;
+(globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 import '../lib/polyfills.cjs';
 
 import assert from 'assert';
@@ -17,9 +17,12 @@ describe('react-dom', () => {
   });
 
   afterEach(() => {
-    act(() => root.unmount());
+    {
+      const r = root;
+      if (r) act(() => r.unmount());
+    }
     root = null;
-    container.remove();
+    if (container) container.remove();
     container = null;
   });
 
@@ -29,50 +32,60 @@ describe('react-dom', () => {
   }
 
   function BoundaryComponent() {
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement | null>(null);
     return <div ref={ref} />;
   }
 
-  function BoundaryChecker({ getRefs }) {
+  function BoundaryChecker({ getRefs }: { getRefs: (refs: unknown) => void }) {
     const boundary = useBoundary();
     getRefs(boundary.refs);
     return <div />;
   }
 
   it('refs', () => {
-    let refs = [];
-    function getRefs(x) {
-      refs = x;
+    let refs: unknown[] = [];
+    function getRefs(x: unknown) {
+      refs = x as unknown as unknown[];
     }
     assert.equal(refs.length, 0);
-    act(() =>
-      root.render(
-        <BoundaryProvider>
-          <BoundaryComponent />
-          <NonBoundaryComponent />
-          <BoundaryComponent />
-          <BoundaryChecker getRefs={getRefs} />
-        </BoundaryProvider>
-      )
-    );
+    {
+      const r = root;
+      if (r)
+        act(() =>
+          r.render(
+            <BoundaryProvider>
+              <BoundaryComponent />
+              <NonBoundaryComponent />
+              <BoundaryComponent />
+              <BoundaryChecker getRefs={getRefs} />
+            </BoundaryProvider>
+          )
+        );
+    }
     assert.equal(refs.length, 2);
   });
 
   it('errors: useRef without provider', () => {
     if (typeof window !== 'undefined') return; // fails on browser, but not node
 
-    assert.throws(() => act(() => root.render(<BoundaryComponent />)));
+    {
+      const r = root;
+      if (r) assert.throws(() => act(() => r.render(<BoundaryComponent />)));
+    }
   });
 
   it('errors: useBoundary without provider', () => {
     if (typeof window !== 'undefined') return; // fails on browser, but not node
 
-    let refs = [];
-    function getRefs(x) {
-      refs = x;
+    let refs: unknown[] = [];
+    function getRefs(x: unknown) {
+      refs = x as unknown as unknown[];
     }
 
-    assert.throws(() => act(() => root.render(<BoundaryChecker getRefs={getRefs} />)));
+    {
+      const r = root;
+      if (r) assert.throws(() => act(() => r.render(<BoundaryChecker getRefs={getRefs} />)));
+    }
     assert.equal(refs.length, 0);
   });
 });
