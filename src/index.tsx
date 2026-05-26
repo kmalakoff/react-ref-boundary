@@ -12,10 +12,10 @@ export interface BoundaryProviderProps {
   children?: ReactNode;
 }
 export const BoundaryProvider: FC<BoundaryProviderProps> = ({ children }) => {
-  const state = useState([]);
+  const state = useState<Ref<unknown>[]>([]);
   const refs = state[0];
 
-  function addRef(ref) {
+  function addRef(ref: Ref<unknown>) {
     refs.push(ref);
     return () => refs.splice(refs.indexOf(ref), 1);
   }
