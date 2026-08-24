@@ -50,13 +50,13 @@
     "version": "tsds version"
   },
   "devDependencies": {
-    "@types/jsdom": "^28.0.3",
+    "@types/jsdom": "^30.0.0",
     "@types/mocha": "*",
     "@types/node": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@web/dev-server-import-maps": "^0.2.1",
-    "jsdom": "^29.1.1",
+    "@web/dev-server-import-maps": "^0.3.0",
+    "jsdom": "^30.0.1",
     "node-version-use": "*",
     "react": "*",
     "react-dom": "*",
