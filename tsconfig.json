@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "dist",
     "jsx": "react-jsx",
-    "types": ["mocha", "node"]
+    "types": ["mocha", "node"],
+    "moduleResolution": "bundler"
   },
   "include": ["src", "test"],
   "exclude": ["node_modules", "dist", "test/data"]
