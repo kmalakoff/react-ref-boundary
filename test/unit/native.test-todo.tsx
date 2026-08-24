@@ -1,4 +1,5 @@
 import assert from 'assert';
+import type { ComponentRef } from 'react';
 import { useRef as useReactRef } from 'react';
 import { View } from 'react-native';
 import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
@@ -7,12 +8,12 @@ import { act, create } from 'react-test-renderer';
 
 describe('react-native', () => {
   function NonBoundaryComponent() {
-    const ref = useReactRef<View>(null);
+    const ref = useReactRef<ComponentRef<typeof View>>(null);
     return <View ref={ref} />;
   }
 
   function BoundaryComponent() {
-    const ref = useRef<View | null>(null);
+    const ref = useRef<ComponentRef<typeof View> | null>(null);
     return <View ref={ref} />;
   }
 
