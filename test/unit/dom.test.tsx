@@ -1,4 +1,5 @@
 (globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+
 import '../lib/polyfills.cjs';
 
 import assert from 'assert';
