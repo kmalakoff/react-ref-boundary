@@ -1,1 +1,1 @@
-ignores: ["node-version-use", "ts-dev-stack", "react-ref-boundary", "@types/jsdom", "tsds-web-test-runner", "react", "react-*", "ts-swc-loaders"]
+ignores: ["react-ref-boundary", "node-version-use", "ts-dev-stack", "@types/jsdom", "tsds-web-test-runner", "react", "react-*", "ts-swc-loaders"]
