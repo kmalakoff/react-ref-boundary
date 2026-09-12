@@ -5,6 +5,7 @@ docs/
 npm-debug.log*
 .tmp/
 .cache/
+.worktrees/
 
 # agents
 .agents/
@@ -14,3 +15,4 @@ CLAUDE.md
 
 # local
 coverage/
+.archive/
