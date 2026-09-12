@@ -45,8 +45,8 @@
     "docs": "tsds docs",
     "format": "tsds format",
     "prepublishOnly": "tsds validate",
-    "test": "tsds test:browser --config wtr.config.mjs",
-    "test:engines": "tsds test:browser --config wtr.config.mjs",
+    "test": "tsds test:browser --config wtr.config.mjs \"test/**/*.test.{ts,tsx,jsx,mjs}\" \"!test/unit/component.test.tsx\" && tsds test:node --no-timeouts",
+    "test:engines": "tsds test:browser --config wtr.config.mjs \"test/**/*.test.{ts,tsx,jsx,mjs}\" \"!test/unit/component.test.tsx\" && nvu engines tsds test:node --no-timeouts",
     "version": "tsds version"
   },
   "devDependencies": {
@@ -61,7 +61,7 @@
     "react": "*",
     "react-dom": "*",
     "react-native": "*",
-    "react-test-renderer": "*",
+    "test-renderer": "^1.2.0",
     "ts-dev-stack": "*",
     "tsds-config": "*",
     "tsds-web-test-runner": "*"
@@ -71,6 +71,9 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "allowScripts": {
+    "esbuild": true
   },
   "tsds": {
     "targets": [

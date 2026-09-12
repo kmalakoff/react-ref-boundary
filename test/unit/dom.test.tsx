@@ -8,7 +8,9 @@ import { createRoot, type Root } from 'react-dom/client';
 
 import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
 
-describe('react-dom', () => {
+const suite = typeof document === 'undefined' ? describe.skip : describe;
+
+suite('react-dom', () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
   beforeEach(() => {
