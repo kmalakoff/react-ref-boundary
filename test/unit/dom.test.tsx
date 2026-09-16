@@ -6,7 +6,7 @@ import assert from 'assert';
 import React, { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
-import { BoundaryProvider, useBoundary, useRef } from 'react-ref-boundary';
+import { BoundaryProvider, type BoundaryRef, useBoundary, useRef } from 'react-ref-boundary';
 
 const suite = typeof document === 'undefined' ? describe.skip : describe;
 
@@ -35,20 +35,20 @@ suite('react-dom', () => {
   }
 
   function BoundaryComponent() {
-    const ref = useRef<HTMLDivElement | null>(null);
+    const ref = useRef<HTMLDivElement>(null);
     return <div ref={ref} />;
   }
 
-  function BoundaryChecker({ getRefs }: { getRefs: (refs: unknown) => void }) {
+  function BoundaryChecker({ getRefs }: { getRefs: (refs: readonly BoundaryRef[]) => void }) {
     const boundary = useBoundary();
     getRefs(boundary.refs);
     return <div />;
   }
 
   it('refs', () => {
-    let refs: unknown[] = [];
-    function getRefs(x: unknown) {
-      refs = x as unknown as unknown[];
+    let refs: readonly BoundaryRef[] = [];
+    function getRefs(x: readonly BoundaryRef[]) {
+      refs = x;
     }
     assert.equal(refs.length, 0);
     {
@@ -69,25 +69,23 @@ suite('react-dom', () => {
   });
 
   it('errors: useRef without provider', () => {
-    if (typeof window !== 'undefined') return; // fails on browser, but not node
-
     {
       const r = root;
-      if (r) assert.throws(() => act(() => r.render(<BoundaryComponent />)));
+      assert.ok(r);
+      assert.throws(() => act(() => r.render(<BoundaryComponent />)), /react-ref-boundary/);
     }
   });
 
   it('errors: useBoundary without provider', () => {
-    if (typeof window !== 'undefined') return; // fails on browser, but not node
-
-    let refs: unknown[] = [];
-    function getRefs(x: unknown) {
-      refs = x as unknown as unknown[];
+    let refs: readonly BoundaryRef[] = [];
+    function getRefs(x: readonly BoundaryRef[]) {
+      refs = x;
     }
 
     {
       const r = root;
-      if (r) assert.throws(() => act(() => r.render(<BoundaryChecker getRefs={getRefs} />)));
+      assert.ok(r);
+      assert.throws(() => act(() => r.render(<BoundaryChecker getRefs={getRefs} />)), /react-ref-boundary/);
     }
     assert.equal(refs.length, 0);
   });

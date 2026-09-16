@@ -11,8 +11,8 @@ The package requires React and Node.js 16 or newer.
 ### Example 1
 
 ```tsx
-import { Fragment, useRef as useReactRef } from "react";
-import { BoundaryProvider, useRef, useBoundary } from "react-ref-boundary";
+import { Fragment, useRef as useReactRef, type RefObject } from "react";
+import { BoundaryProvider, useRef, useBoundary, type BoundaryRef } from "react-ref-boundary";
 
 function NonBoundaryComponent() {
   const ref = useReactRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ function NonBoundaryComponent() {
 }
 
 function BoundaryComponent() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
   return <div ref={ref} />;
 }
 
@@ -31,7 +31,7 @@ function BoundaryChecker() {
       onClick={(event) => {
         if (
           !boundary.refs.some(
-            (ref) => ref.current && ref.current.contains(event.target as Node),
+            (ref) => isContainmentRef(ref) && ref.current && ref.current.contains(event.target as Node),
           )
         ) {
           // outside all of the references
@@ -41,7 +41,16 @@ function BoundaryChecker() {
   );
 }
 
-function BoundaryReporter({ getRefs }) {
+function isContainmentRef(ref: BoundaryRef): ref is RefObject<{ contains(target: Node): boolean }> {
+  return (
+    typeof ref.current === "object" &&
+    ref.current !== null &&
+    "contains" in ref.current &&
+    typeof (ref.current as { contains?: unknown }).contains === "function"
+  );
+}
+
+function BoundaryReporter({ getRefs }: { getRefs: (refs: readonly BoundaryRef[]) => void }) {
   const boundary = useBoundary();
   getRefs(boundary.refs);
   return <Fragment />;

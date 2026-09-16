@@ -1,12 +1,7 @@
 const assert = require('assert');
 
-let umd = null;
-try {
-  umd = require('react-ref-boundary/umd');
-} catch (_) {
-  umd = require('react-ref-boundary/dist/umd/react-ref-boundary.cjs');
-}
-const reactRefBoundary = typeof window !== 'undefined' ? window.reactRefBoundary : umd.default || umd;
+const umd = require('react-ref-boundary/umd');
+const reactRefBoundary = umd.default || umd;
 const { BoundaryProvider, useRef, useBoundary } = reactRefBoundary;
 
 describe('exports umd', () => {
