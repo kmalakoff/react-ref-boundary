@@ -1,5 +1,6 @@
-import type { FC, ReactNode, RefObject } from 'react';
-import { createContext, createElement, useCallback, useContext, useEffect, useMemo, useRef as useReactRef } from 'react';
+import React, { type FC, type ReactNode, type RefObject } from 'react';
+
+const { createContext, createElement, useCallback, useContext, useEffect, useMemo, useRef: useReactRef } = React;
 
 export type BoundaryRef = RefObject<unknown>;
 

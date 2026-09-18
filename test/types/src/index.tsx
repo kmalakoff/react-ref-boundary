@@ -1,4 +1,5 @@
 import type { RefObject } from 'react';
+import * as React from 'react';
 import { BoundaryProvider, type BoundaryRef, type RefContextType, useBoundary, useRef } from 'react-ref-boundary';
 
 export function Component() {
@@ -23,3 +24,4 @@ export function checkRegistrationTypes(context: RefContextType) {
 }
 
 void Component;
+void React;

@@ -1,0 +1,8 @@
+{
+  "name": "react-ref-boundary-engine-consumer",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "react": "16.8.0"
+  }
+}
