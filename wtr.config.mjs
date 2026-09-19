@@ -3,11 +3,11 @@ import createConfig from 'tsds-web-test-runner/createConfig.mjs';
 import { prepareReactProfile } from './test/lib/local-react-bundle.mjs';
 
 const profile = process.env.REACT_TEST_PROFILE || 'current';
-if (profile !== 'minimum' && profile !== 'current') throw new Error(`Unknown React browser profile: ${profile}`);
+if (!['minimum', 'current', 'react17', 'react18'].includes(profile)) throw new Error(`Unknown React browser profile: ${profile}`);
 
 const config = createConfig({
   hostname: '127.0.0.1',
-  port: profile === 'minimum' ? 9013 : 9014,
+  port: { minimum: 9013, current: 9014, react17: 9102, react18: 9103 }[profile],
   nodeResolve: {
     modulePaths: [`${process.cwd()}/test/browser/${profile}/node_modules`],
   },
