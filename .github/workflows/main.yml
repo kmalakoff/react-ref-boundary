@@ -27,3 +27,15 @@ jobs:
       - run: npm run prepublishOnly
       - run: npm run test
       - run: npm run test:engines
+  native-compatibility:
+    name: Native compatibility (current)
+    permissions:
+      contents: read
+    uses: kmalakoff/react-native-outside/.github/workflows/native.yml@44bd66ef48915a0abf3250072657d2e0a4ef2dab
+    with:
+      profile: current
+      candidate_package: react-ref-boundary
+      candidate_repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+      candidate_sha: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      fixture_repository: kmalakoff/react-native-outside
+      fixture_sha: 44bd66ef48915a0abf3250072657d2e0a4ef2dab
