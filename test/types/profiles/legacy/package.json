@@ -1,0 +1,10 @@
+{
+  "name": "react-ref-boundary-types-legacy",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@types/react": "16.9.56",
+    "react": "16.8.0",
+    "typescript": "5.9.3"
+  }
+}

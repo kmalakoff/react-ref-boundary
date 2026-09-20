@@ -28,6 +28,7 @@
   "type": "module",
   "exports": {
     ".": {
+      "react-native": "./dist/esm/index.js",
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
@@ -45,29 +46,31 @@
     "docs": "tsds docs",
     "format": "tsds format",
     "prepublishOnly": "tsds validate",
-    "test": "tsds test:browser --config wtr.config.mjs \"test/**/*.test.{ts,tsx,jsx,mjs}\" \"!test/unit/component.test.tsx\" && tsds test:node --no-timeouts",
-    "test:engines": "tsds test:browser --config wtr.config.mjs \"test/**/*.test.{ts,tsx,jsx,mjs}\" \"!test/unit/component.test.tsx\" && nvu engines tsds test:node --no-timeouts",
+    "test": "npm run test:types && node test/lib/browser.mjs && tsds test:node --no-timeouts --exclude test/unit/dom.test.tsx --exclude test/exports/umd-browser.test.ts",
+    "test:browser:checkpoints": "node test/lib/browser-checkpoints.mjs",
+    "test:engines": "npm run build && node test/engines/run.ts",
+    "test:types": "npm run build && node test/types/run.mjs",
     "version": "tsds version"
   },
   "devDependencies": {
-    "@types/jsdom": "^30.0.0",
     "@types/mocha": "*",
     "@types/node": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
     "@web/dev-server-import-maps": "^0.3.0",
-    "jsdom": "^30.0.1",
+    "assert": "^1.5.0",
+    "esbuild": "^0.28.2",
+    "fs-remove-compat": "*",
     "node-version-use": "*",
-    "react": "*",
-    "react-dom": "*",
-    "react-native": "*",
-    "test-renderer": "^1.2.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tar": "^7.4.3",
     "ts-dev-stack": "*",
     "tsds-config": "*",
     "tsds-web-test-runner": "*"
   },
   "peerDependencies": {
-    "react": "*"
+    "react": ">=16.8.0"
   },
   "engines": {
     "node": ">=16"
