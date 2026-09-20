@@ -69,6 +69,11 @@ export default function App() {
 }
 ```
 
+### Testing
+
+See [local tests and manual Android/iOS CI](test/README.md) for the compatibility
+profiles, test commands, and optional GitHub Actions runs.
+
 ### Documentation
 
 [API Docs](https://kmalakoff.github.io/react-ref-boundary/)
