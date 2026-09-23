@@ -1,3 +1,3 @@
 import { profileConfig } from './wtr.config.mjs';
 
-export default profileConfig('react17');
+export default profileConfig('minimum');
